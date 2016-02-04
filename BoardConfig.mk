@@ -21,7 +21,6 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Kernel Prebuilt
 TARGET_PREBUILT_KERNEL := device/motorola/thea/kernel
-TARGET_CUSTOM_KERNEL_HEADERS := device/motorola/thea/include
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/thea/mkbootimg.mk
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
@@ -33,7 +32,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SUPPRESS_EMMC_WIPE := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10444800
@@ -44,13 +42,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # TWRP
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
 RECOVERY_SDCARD_ON_DATA := true
 TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
-TW_NO_USB_STORAGE := true
-TW_SCREEN_BLANK_ON_BOOT := true
 TW_THEME := portrait_hdpi
-
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
