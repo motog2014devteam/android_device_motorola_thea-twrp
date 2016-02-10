@@ -1,3 +1,28 @@
+#
+# Copyright 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# This contains the module build definitions for the hardware-specific
+# components for this device.
+#
+# As much as possible, those components should be built unconditionally,
+# with device-specific names to avoid collisions, to avoid device-specific
+# bitrot and build breakages. Building a component unconditionally does
+# *not* include it on all devices, so it is safe even with hardware-specific
+# components.
+
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := MSM8226
@@ -16,22 +41,20 @@ TARGET_CPU_VARIANT := krait
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp -mtune=cortex-a7
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp -mtune=cortex-a7
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Kernel Prebuilt
 TARGET_PREBUILT_KERNEL := device/motorola/thea/kernel
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/thea/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom vmalloc=400M androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/motorola/thea/dt.img
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --dt device/motorola/thea/dt.img
 
 # Recovery
 RECOVERY_VARIANT := twrp
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_SUPPRESS_EMMC_WIPE := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10444800
@@ -39,7 +62,6 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10526720
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1157627904
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 5207080960
 BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_HAS_LARGE_FILESYSTEM := true
 
 # TWRP
 RECOVERY_SDCARD_ON_DATA := true
